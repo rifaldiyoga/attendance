@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:attendance/routes/route_helper.dart';
 import 'package:attendance/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({super.key});
@@ -11,11 +14,27 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
+  void requestPermissions() async {
+    // Request permission to access location
+    var status = await Permission.location.request();
+
+    if (status.isGranted) {
+      // Permission granted, proceed with your logic
+      print("Location permission granted");
+    } else {
+      // Permission denied, handle accordingly
+      print("Location permission denied");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 4), () async {});
+    requestPermissions();
+    Timer(const Duration(seconds: 2), () async {
+      Get.offNamed(RouteHelper.getHome());
+    });
   }
 
   @override

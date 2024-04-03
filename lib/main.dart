@@ -1,10 +1,12 @@
-import 'package:attendance/pages/home_page.dart';
-import 'package:attendance/pages/lokasi/lokasi_page.dart';
-import 'package:attendance/pages/lokasi/tambah_lokasi_page.dart';
-import 'package:attendance/pages/splashscreen_page.dart';
+import 'package:attendance/routes/route_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:get/get.dart';
+import 'package:attendance/helpers/dependencies.dart' as dependencies;
 
-void main() {
+void main() async {
+  await dependencies.init();
+  initializeDateFormatting();
   runApp(const MyApp());
 }
 
@@ -13,9 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TambahLokasiPage(),
+      initialRoute: RouteHelper.getSplashScreen(),
+      getPages: RouteHelper.routes,
     );
   }
 }
