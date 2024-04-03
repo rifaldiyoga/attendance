@@ -1,28 +1,40 @@
 import 'package:attendance/theme.dart';
 import 'package:flutter/material.dart';
 
-class PrimaryButton extends StatelessWidget {
+class PrimaryButton extends StatefulWidget {
   final String text;
   final VoidCallback onPressed;
+  final Widget? custom;
 
-  const PrimaryButton({super.key, required this.text, required this.onPressed});
+  const PrimaryButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      this.custom = null});
 
+  @override
+  State<PrimaryButton> createState() => _PrimaryButtonState();
+}
+
+class _PrimaryButtonState extends State<PrimaryButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50,
       width: double.infinity,
       child: TextButton(
-          onPressed: onPressed,
+          onPressed: widget.onPressed,
           style: TextButton.styleFrom(
               backgroundColor: primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16))),
-          child: Text(
-            text,
-            style:
-                onPrimaryTextStyle.copyWith(fontSize: 14, fontWeight: medium),
-          )),
+          child: widget.custom == null
+              ? Text(
+                  widget.text,
+                  style: onPrimaryTextStyle.copyWith(
+                      fontSize: 14, fontWeight: medium),
+                )
+              : widget.custom!),
     );
   }
 }

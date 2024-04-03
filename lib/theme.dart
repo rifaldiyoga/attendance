@@ -10,7 +10,7 @@ double mg28 = 28.0;
 double mg32 = 32.0;
 
 const primaryColor = Color(0xff3085FE);
-const secondaryColor = Color(0xff3085FE);
+const secondaryColor = Color.fromARGB(105, 178, 203, 239);
 
 const lightOrangeColor = Color(0xfffcdbc5);
 const orangeColor = Color(0xfff78d4e);

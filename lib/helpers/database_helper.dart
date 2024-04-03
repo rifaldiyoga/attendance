@@ -41,7 +41,7 @@ class AttendanceDatabaseHelper {
         "nama_lokasi TEXT, alamat TEXT, coordinate TEXT)");
     await db.execute("CREATE TABLE absensi"
         "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        "date TEXT, lokasi TEXT, lokasi_id INTEGER, coordinate TEXT)");
+        "date TEXT, lokasi TEXT, type TEXT,lokasi_id INTEGER, coordinate TEXT)");
   }
 
   Future<List<Map<String, dynamic>>> getLokasiMapList() async {
@@ -100,11 +100,18 @@ class AttendanceDatabaseHelper {
     return productList;
   }
 
+  Future<Lokasi?> getLokasiById(int id) async {
+    Database db = await this.database;
+    var data =
+        await db.rawQuery("SELECT * FROM ${Lokasi.tableName} WHERE id = $id");
+
+    return data.map((e) => Lokasi.fromJson(e)).firstOrNull;
+  }
+
   Future<int> insertAbsensi(Absensi product) async {
     // print(cart);
     Database db = await this.database;
     var result = await db.insert(Absensi.tableName, product.toJson());
-    print(result);
     return result;
   }
 
@@ -114,9 +121,19 @@ class AttendanceDatabaseHelper {
 
     List<Absensi> productList = <Absensi>[];
     for (int i = 0; i < count; i++) {
-      productList.add(Absensi.fromJson(productMapList[i]));
+      var absensi = Absensi.fromJson(productMapList[i]);
+      absensi.lokasiModel = await getLokasiById(absensi.lokasiId!);
+      productList.add(absensi);
     }
     return productList;
+  }
+
+  Future<Absensi?> getLastAbsensi() async {
+    Database db = await this.database;
+    var data = await db.rawQuery(
+        "SELECT * FROM ${Absensi.tableName} ORDER BY id DESC LIMIT 1");
+
+    return data.map((e) => Absensi.fromJson(e)).firstOrNull;
   }
 
   close() async {

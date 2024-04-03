@@ -1,4 +1,5 @@
 import 'package:attendance/helpers/database_helper.dart';
+import 'package:attendance/helpers/helper.dart';
 import 'package:attendance/models/lokasi.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,14 @@ class LokasiController extends GetxController {
   }
 
   void addLokasi(Lokasi product) {
+    if (product.namaLokasi!.isEmpty) {
+      Helper.showMessage("Nama Lokasi Kosong", "Harap isi nama lokasi");
+      return;
+    }
+    if (product.coordinate!.isEmpty) {
+      Helper.showMessage("Koordinat Lokasi Kosong", "Harap isi nama lokasi");
+      return;
+    }
     if (product.id != null) {
       AttendanceDatabaseHelper.db.updateLokasi(product).then((value) {
         updateLokasi(product);

@@ -45,6 +45,7 @@ class _TambahLokasiPageState extends State<TambahLokasiPage> {
         resizeToAvoidBottomInset: false,
         enableMapTypeButton: false,
         usePlaceDetailSearch: true,
+        selectInitialPosition: true,
         selectedPlaceWidgetBuilder:
             (context, selectedPlace, state, isSearchBarFocused) {
           controller.pickResult = selectedPlace;

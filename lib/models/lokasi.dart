@@ -5,8 +5,10 @@ class Lokasi {
   String? namaLokasi;
   String? alamat;
   String? coordinate;
+  double? distance;
 
-  Lokasi({this.id, this.namaLokasi, this.alamat, this.coordinate});
+  Lokasi(
+      {this.id, this.namaLokasi, this.alamat, this.coordinate, this.distance});
 
   Lokasi.fromJson(Map<String, dynamic> json) {
     id = json['id'];

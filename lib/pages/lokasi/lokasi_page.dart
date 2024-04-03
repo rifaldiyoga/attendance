@@ -29,14 +29,21 @@ class _LokasiPageState extends State<LokasiPage> with TickerProviderStateMixin {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
           onPressed: () {
             Get.toNamed(RouteHelper.getTambahLokasi());
           },
           child: Icon(Icons.add)),
       appBar: AppBar(
-        title: const Text('Daftar Lokasi'),
+        title: Text(
+          'Daftar Lokasi',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         bottom: TabBar(
           isScrollable: false,
+          labelColor: primaryColor,
+          indicatorColor: primaryColor,
           controller: _tabController,
           tabs: [
             Tab(
